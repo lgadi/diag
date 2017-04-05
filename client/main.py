@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 import common.config
-from client.Poller import Poller
+from .poller import Poller
 
 config = common.config.config()
 app = Flask(__name__)

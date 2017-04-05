@@ -7,7 +7,6 @@ class Poller:
         self.enabled = False
         self.t = None
 
-
     def state(self):
         return self.enabled
 
