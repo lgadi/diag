@@ -1,9 +1,13 @@
 from flask import Flask
 from flask import request
-import common.config
-from .poller import Poller
+from common.logger import Logger
+from common.config import Config
+from client.poller import Poller
 
-config = common.config.config()
+logger = Logger().getLogger(__name__)
+logger.error("init config")
+config = Config().config
+logger.debug("done")
 app = Flask(__name__)
 poller = Poller()
 
@@ -15,7 +19,7 @@ def hello():
 
 @app.route("/state")
 def state():
-    print(request.args.get('enabled'))
+    logging.debug(request.args.get('enabled'))
     if request.args.get('enabled') is not None:
         poller.setstate(request.args.get('enabled'))
     return str(poller.state())

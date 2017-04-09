@@ -1,9 +1,10 @@
 from threading import Timer
+import logging
 
 
 class Poller:
     def __init__(self):
-        print("poller init")
+        logging.debug("poller init")
         self.enabled = False
         self.t = None
 
@@ -11,7 +12,7 @@ class Poller:
         return self.enabled
 
     def poll(self):
-        print("polling")
+        logging.debug("polling")
         if self.enabled:
             self.start()
 
