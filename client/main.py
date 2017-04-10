@@ -1,11 +1,11 @@
 from flask import Flask
 from flask import request
-from common.logger import Logger
+import logging
 from common.config import Config
 from client.poller import Poller
 
-logger = Logger().getLogger(__name__)
-logger.error("init config")
+logger = logging.getLogger(__name__)
+logger.debug("init config")
 config = Config().config
 logger.debug("done")
 app = Flask(__name__)
