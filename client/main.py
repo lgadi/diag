@@ -4,13 +4,14 @@ from threading import Timer
 import logging
 from common.config import Config
 from client.poller import Poller
+from client.server_poller import ServerPoller
 
 logger = logging.getLogger(__name__)
 logger.debug("init config")
 config = Config().config
 logger.debug("done")
 app = Flask(__name__)
-poller = Poller(Timer)
+poller = Poller(Timer, ServerPoller)
 
 
 @app.route("/")
