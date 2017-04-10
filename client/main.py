@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from threading import Timer
 import logging
 from common.config import Config
 from client.poller import Poller
@@ -9,7 +10,7 @@ logger.debug("init config")
 config = Config().config
 logger.debug("done")
 app = Flask(__name__)
-poller = Poller()
+poller = Poller(Timer)
 
 
 @app.route("/")

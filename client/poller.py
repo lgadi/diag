@@ -1,12 +1,12 @@
-from threading import Timer
 import logging
 
 
 class Poller:
-    def __init__(self):
+    def __init__(self, timerProvider):
         logging.debug("poller init")
         self.enabled = False
         self.t = None
+        self.timerProvider = timerProvider
 
     def state(self):
         return self.enabled
@@ -24,7 +24,7 @@ class Poller:
             self.stop()
 
     def start(self):
-        self.t = Timer(5, self.poll)
+        self.t = self.timerProvider(5, self.poll)
         self.t.start()
 
     def stop(self):
