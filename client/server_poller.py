@@ -1,6 +1,7 @@
 import logging
 import http.client
 from common.config import Config
+import json
 
 
 class ServerPoller:
@@ -13,4 +14,6 @@ class ServerPoller:
         conn = http.client.HTTPConnection(self.config["client"]["poll_host"], self.config["client"]["poll_port"])
         conn.request("GET", self.config["client"]["poll_url"])
         resp = conn.getresponse()
-        self.logger.info(resp.readline())
+        result = resp.readline()
+        json_result = json.loads(result)
+        self.logger.info("got command %s (id: %s)", json_result["command"], json_result["id"])
