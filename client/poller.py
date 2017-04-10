@@ -2,11 +2,11 @@ import logging
 
 
 class Poller:
-    def __init__(self, timerProvider):
+    def __init__(self, timer_provider):
         logging.debug("poller init")
         self.enabled = False
         self.t = None
-        self.timerProvider = timerProvider
+        self.timerProvider = timer_provider
 
     def state(self):
         return self.enabled
