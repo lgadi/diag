@@ -22,6 +22,7 @@ class PsHandler(BaseHandler):
         return "ps"
 
     def async_run(self):
-        stdoutdata = subprocess.getoutput(self.command + " " + " ".join(self.command_args))
+        stdoutdata = subprocess.getoutput(" ".join([self.command, " ".join(self.command_args)]))
         logger.debug(stdoutdata)
         logger.debug("will send result for command id %s", self.command_id)
+        self.post_result(stdoutdata)
