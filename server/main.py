@@ -1,6 +1,8 @@
 from flask import Flask, request
 import logging
 from common.config import Config
+from server.db.commands_dal import CommandsDal
+from urllib.parse import unquote
 import json
 import os
 from server.command_manager import CommandManager
@@ -16,10 +18,20 @@ def hello():
     return "diag server v0.11"
 
 
+@app.route("/client/<client_id>/add", methods=['POST'])
+def add_command(client_id):
+    cmd = unquote(request.args['command'])
+    logger.info("adding command %s to client %s", cmd, client_id)
+    cd = CommandsDal()
+    cd.add_command_for_client(client_id, cmd)
+    return "ok"
+
+
 @app.route("/client/<client_id>/poll")
 def poll(client_id):
-    logging.debug('got poll request from %s' % client_id)
+    logger.debug('got poll request from %s' % client_id)
     json_result = json.dumps(command_manager.get_command_for_client(client_id))
+    logger.debug(json_result)
     return json_result
 
 

@@ -18,5 +18,9 @@ class ServerPoller:
         resp = conn.getresponse()
         result = resp.readline()
         json_result = json.loads(result)
-        logger.debug("got command %s (id: %s)", json_result["command"], json_result["id"])
-        self.command_handler.execute_command(json_result["command"], json_result["id"])
+        logger.info('result: %s', json_result)
+        if json_result is not None:
+            logger.debug("got command %s (id: %s)", json_result["command"], json_result["id"])
+            self.command_handler.execute_command(json_result["command"], json_result["id"])
+        else:
+            logger.debug('no command')

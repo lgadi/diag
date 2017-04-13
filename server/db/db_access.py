@@ -18,15 +18,13 @@ class DbAccess:
         self.cnx.database = config["database"]["database"]
 
     def query(self, query, args):
-        if self.cnx.is_connected() is not True:
-            self.reconnect()
+        self.reconnect()
         cur = self.cnx.cursor()
         cur.execute(query, args)
         return cur
 
     def query_and_commit(self, query, args):
-        if self.cnx.is_connected() is not True:
-            self.reconnect()
+        self.reconnect()
         cur = self.cnx.cursor()
         cur.execute(query, args)
         self.cnx.commit()
