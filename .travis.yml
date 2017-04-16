@@ -14,5 +14,5 @@ notifications:
   email:
     recipients:
       - gadilif@gmail.com
-    on_success: never # default: change
+    on_success: change # default: change, can also be never
     on_failure: always # default: always
