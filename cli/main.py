@@ -6,9 +6,11 @@ import argparse
 config = Config().config
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
-parser.add_argument("action", type=str, help="action to take (add/show)")
-parser.add_argument("-id", "--client_id", type=int, help="client id")
-parser.add_argument("-c", "--command", type=str, help="command")
+parent_parser = argparse.ArgumentParser()
+
+parser.add_argument("action", choices=['add', 'show'], type=str, help="action to take (add/show)")
+parser.add_argument("client", type=int, help="client id")
+parser.add_argument("command", type=str, help="command")
 
 
 def add(client_id, command):
@@ -20,6 +22,6 @@ if __name__ == "__main__":
     logger.info("cli started")
     args = parser.parse_args()
     if args.action == 'add':
-        add(args.client_id, args.command)
+        add(args.client, args.command)
 
 
