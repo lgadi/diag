@@ -11,6 +11,7 @@ class CommandsHandler(HandlerBase):
 
     def add(self, command):
         logger.debug("add")
+        print("add")
         return "command added " + command
 
     def handler_name(self):

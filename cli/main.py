@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 parent_parser = argparse.ArgumentParser()
 parser = argparse.ArgumentParser()
 parser.add_argument("action", choices=['add', 'list'], type=str, help="action to take (add/list)")
-parent_parser.add_argument("client", type=int, help="client id")
+parser.add_argument("client", type=int, help="client id")
 parser.add_argument("command", type=str, help="command")
 
 
