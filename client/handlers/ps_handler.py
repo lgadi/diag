@@ -1,7 +1,9 @@
-from .base_handler import BaseHandler
+import logging
 import subprocess
 import threading
-import logging
+
+from .base_handler import BaseHandler
+
 logger = logging.getLogger(__name__)
 
 

@@ -1,5 +1,6 @@
 import logging
-from datetime import date, datetime
+from datetime import datetime
+
 from .db_access import DbAccess
 
 logger = logging.getLogger(__name__)

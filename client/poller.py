@@ -1,5 +1,7 @@
-from common.config import Config
 import logging
+
+from common.config import Config
+
 logger = logging.getLogger(__name__)
 
 

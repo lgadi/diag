@@ -1,8 +1,10 @@
 import unittest
+from threading import Timer
 from unittest.mock import MagicMock
+
 from client.poller import Poller
 from client.server_poller import ServerPoller
-from threading import Timer
+
 mock_server_poller = ServerPoller
 mock_timer = Timer
 
@@ -29,4 +31,3 @@ class TestMain(unittest.TestCase):
         poller = Poller(mock_timer, mock_server_poller)
         poller.stop()
         mock_timer.cancel.assert_not_called()
-

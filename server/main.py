@@ -1,11 +1,13 @@
-from flask import Flask, request
-import logging
-from common.config import Config
-from server.db.commands_dal import CommandsDal
-from urllib.parse import unquote
 import json
+import logging
 import os
+from urllib.parse import unquote
+
+from flask import Flask, request
+
+from common.config import Config
 from server.command_manager import CommandManager
+from server.db.commands_dal import CommandsDal
 
 logger = logging.getLogger(__name__)
 config = Config().config
@@ -58,6 +60,7 @@ def upload_file():
                          os.stat(full_path_filename).st_size)
             return 'file uploaded'
     return 'ok'
+
 
 if __name__ == "__main__":
     app.run(port=config["server"]["port"])

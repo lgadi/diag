@@ -1,6 +1,9 @@
-import mysql.connector
 import logging
+
+import mysql.connector
+
 from common.config import Config
+
 logger = logging.getLogger(__name__)
 
 

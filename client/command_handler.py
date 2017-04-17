@@ -1,5 +1,7 @@
-from .handlers.ps_handler import PsHandler
 import logging
+
+from .handlers.ps_handler import PsHandler
+
 logger = logging.getLogger(__name__)
 
 

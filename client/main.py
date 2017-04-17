@@ -1,10 +1,12 @@
+import logging
+from threading import Timer
+
 from flask import Flask
 from flask import request
-from threading import Timer
-import logging
-from common.config import Config
+
 from client.poller import Poller
 from client.server_poller import ServerPoller
+from common.config import Config
 
 logger = logging.getLogger(__name__)
 logger.debug("init config")
@@ -25,6 +27,7 @@ def state():
     if request.args.get('enabled') is not None:
         poller.setstate(request.args.get('enabled'))
     return str(poller.state())
+
 
 if __name__ == "__main__":
     app.run(port=config["client"]["port"])

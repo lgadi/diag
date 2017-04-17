@@ -1,8 +1,10 @@
-from common.config import Config
-from client.command_handler import CommandHandler
-import json
 import http.client
+import json
 import logging
+
+from client.command_handler import CommandHandler
+from common.config import Config
+
 logger = logging.getLogger(__name__)
 
 

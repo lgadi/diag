@@ -1,7 +1,10 @@
 import logging
-from common.config import Config
 import tempfile
+
 import requests
+
+from common.config import Config
+
 logger = logging.getLogger(__name__)
 config = Config().config
 
@@ -25,7 +28,7 @@ class BaseHandler:
         fp = tempfile.NamedTemporaryFile()
         fp.write(data.encode())
         fp.flush()
-        response = requests.post('http://localhost:8081/client/result?client_id='+config.get('client', 'client_id') +
-                                 '&command_id='+str(self.command_id),
+        response = requests.post('http://localhost:8081/client/result?client_id=' + config.get('client', 'client_id') +
+                                 '&command_id=' + str(self.command_id),
                                  files={'file': open(fp.name)})
         print(response.content)

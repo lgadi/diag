@@ -1,12 +1,13 @@
-import unittest
 import logging
-from server.db.commands_dal import CommandsDal
 import time
+import unittest
+
+from server.db.commands_dal import CommandsDal
+
 logger = logging.getLogger(__name__)
 
 
 class TestDb(unittest.TestCase):
-
     def setUp(self):
         self.commands_dal = CommandsDal()
 
@@ -50,5 +51,3 @@ class TestDb(unittest.TestCase):
         cmd = cd.pop_command_for_client(2)
         self.assertEqual(cmd["command"], "ps -ef", "command should be ps -ef")
         self.assertEqual(len(cd.get_commands_for_client(2)), 1, "after pop there should be no more commands")
-
-

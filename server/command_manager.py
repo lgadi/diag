@@ -1,5 +1,7 @@
 import logging
+
 from server.db.commands_dal import CommandsDal
+
 logger = logging.getLogger(__name__)
 
 
