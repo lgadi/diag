@@ -4,6 +4,7 @@ import readline
 import sys
 
 import cli.handlers
+from cli.handlers.commands_handler import CommandsHandler
 from cli.shell_completer import ShellCompleter
 
 logger = logging.getLogger(__name__)
@@ -40,6 +41,7 @@ class Shell:
             commands.append('help')
             commands.append('exit')
             handler_modules = cli.handlers.get_classes()
+            print(handler_modules)
             classes = []
             for hm in handler_modules:
                 self.get_classes_in_module(hm, classes)
@@ -51,11 +53,16 @@ class Shell:
     def run(self):
         while True:
             command = input("diag> ")
-            method = getattr(self, command)
-            if method:
+            try:
+                method = getattr(self, command)
                 method()
-            else:
-                print("command not found")
+            except AttributeError as ae:
+                if command.startswith("commands"):
+                    print("handling commands")
+                    ch = CommandsHandler()
+                    print(ch.add(command[9:]))
+                else:
+                    print("command not found")
 
 
 if __name__ == "__main__":
