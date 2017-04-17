@@ -1,4 +1,5 @@
 import logging
+import json
 
 from server.db.commands_dal import CommandsDal
 
@@ -17,3 +18,8 @@ class CommandManager:
         if command_for_client is not None:
             return {'command': command_for_client["command"], 'id': command_for_client["id"]}
         return None
+
+    def get_all_commands_for_client(self, client_id):
+        logger.debug("get all commands for client %s", client_id)
+        commands_for_client = self.commands_dal.get_commands_for_client(client_id)
+        return json.dumps(commands_for_client)

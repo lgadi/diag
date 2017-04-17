@@ -28,6 +28,10 @@ def add_command(client_id):
     cd.add_command_for_client(client_id, cmd)
     return "ok"
 
+@app.route("/client/<client_id>/list")
+def list(client_id):
+    logger.debug('got list request for client %s' % client_id)
+    json_result = json.dumps(command_manager.get_all_commands_for_client(client_id))
 
 @app.route("/client/<client_id>/poll")
 def poll(client_id):
