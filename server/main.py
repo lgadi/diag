@@ -32,6 +32,7 @@ def add_command(client_id):
 def list(client_id):
     logger.debug('got list request for client %s' % client_id)
     json_result = json.dumps(command_manager.get_all_commands_for_client(client_id))
+    return json_result
 
 @app.route("/client/<client_id>/poll")
 def poll(client_id):

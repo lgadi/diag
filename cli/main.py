@@ -2,6 +2,7 @@ import argparse
 import http.client
 import logging
 from urllib.parse import urlencode
+import json
 
 from common.config import Config
 
@@ -23,7 +24,10 @@ def list(client_id):
     logger.debug("showing commands for client %s", client_id)
     conn = http.client.HTTPConnection(config["client"]["poll_host"], config["client"]["poll_port"])
     conn.request("GET", "/client/" + str(client_id)+"/list")
-
+    resp = conn.getresponse()
+    result = resp.readline()
+    json_result = json.loads(result)
+    print(json_result)
 
 
 if __name__ == "__main__":
