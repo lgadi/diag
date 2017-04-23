@@ -14,6 +14,7 @@ from common.config import Config
 from server.command_manager import CommandManager
 from server.db.commands_dal import CommandsDal
 from server.db.results_dal import ResultsDal
+from server.db.client_dal import ClientDal
 
 logger = logging.getLogger(__name__)
 config = Config().config
@@ -88,6 +89,8 @@ def list(client_id):
 
 @app.route("/client/<client_id>/poll")
 def poll(client_id):
+    client_dal = ClientDal()
+    client_dal.save_client(client_id, datetime.now())
     logger.debug('got poll request from %s' % client_id)
     json_result = json.dumps(command_manager.get_command_for_client(client_id))
     logger.debug(json_result)
