@@ -7,7 +7,7 @@ from .bash_handler import BashHandler
 logger = logging.getLogger(__name__)
 
 
-class PsHandler(BashHandler):
+class LsHandler(BashHandler):
 
     def get_command_name(self):
-        return "ps"
+        return "ls"
