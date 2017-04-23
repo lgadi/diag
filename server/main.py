@@ -1,22 +1,24 @@
 import json
 import logging
 import os
+from datetime import datetime
 from urllib.parse import unquote
+from datetime import timedelta
+from flask import make_response, request, current_app
+from functools import update_wrapper
 
-from flask import Flask, request
+
+from flask import Flask
 
 from common.config import Config
 from server.command_manager import CommandManager
 from server.db.commands_dal import CommandsDal
+from server.db.results_dal import ResultsDal
 
 logger = logging.getLogger(__name__)
 config = Config().config
 app = Flask(__name__)
 command_manager = CommandManager()
-
-from datetime import timedelta
-from flask import make_response, request, current_app
-from functools import update_wrapper
 
 
 def crossdomain(origin=None, methods=None, headers=None,
@@ -58,6 +60,7 @@ def crossdomain(origin=None, methods=None, headers=None,
 
         f.provide_automatic_options = False
         return update_wrapper(wrapped_function, f)
+
     return decorator
 
 
@@ -74,12 +77,14 @@ def add_command(client_id):
     cd.add_command_for_client(client_id, cmd)
     return "ok"
 
+
 @app.route("/client/<client_id>/list")
 @crossdomain(origin='*')
 def list(client_id):
     logger.debug('got list request for client %s' % client_id)
     json_result = json.dumps(command_manager.get_all_commands_for_client(client_id))
     return json_result
+
 
 @app.route("/client/<client_id>/poll")
 def poll(client_id):
@@ -107,9 +112,12 @@ def upload_file():
             filename = file.filename
             full_path_filename = os.path.join('./uploads', filename)
             file.save(full_path_filename)
-            logger.debug("received file, client_id: %s, command_id: %s, filename: %s, file size: %s",
-                         request.args['client_id'], full_path_filename, request.args['command_id'],
-                         os.stat(full_path_filename).st_size)
+            logger.info("received file, client_id: %s, command_id: %s, filename: %s, file size: %s",
+                        request.args['client_id'], full_path_filename, request.args['command_id'],
+                        os.stat(full_path_filename).st_size)
+            results_dal = ResultsDal()
+            results_dal.save_result(request.args['client_id'], request.args['command'], full_path_filename,
+                                    datetime.now())
             return 'file uploaded'
     return 'ok'
 

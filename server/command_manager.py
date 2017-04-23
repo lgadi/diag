@@ -5,11 +5,14 @@ from datetime import datetime
 from server.db.commands_dal import CommandsDal
 
 logger = logging.getLogger(__name__)
+
+
 def json_serial(obj):
-    if (isinstance(obj, datetime)):
+    if isinstance(obj, datetime):
         serial = obj.isoformat()
         return serial
     raise TypeError
+
 
 class CommandManager:
     def __init__(self):

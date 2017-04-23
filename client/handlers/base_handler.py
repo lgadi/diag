@@ -1,5 +1,6 @@
 import logging
 import tempfile
+from urllib.parse import urlencode
 
 import requests
 
@@ -28,7 +29,9 @@ class BaseHandler:
         fp = tempfile.NamedTemporaryFile()
         fp.write(data.encode())
         fp.flush()
+
         response = requests.post('http://localhost:8081/client/result?client_id=' + config.get('client', 'client_id') +
-                                 '&command_id=' + str(self.command_id),
+                                 '&command_id=' + str(self.command_id) + "&" +
+                                 urlencode({"command": self.command + " " + ' '.join(map(str, self.command_args))}),
                                  files={'file': open(fp.name)})
         print(response.content)

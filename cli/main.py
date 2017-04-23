@@ -20,6 +20,7 @@ def add(client_id, command):
     conn = http.client.HTTPConnection(config["client"]["poll_host"], config["client"]["poll_port"])
     conn.request("POST", "/client/" + str(client_id) + "/add?" + urlencode({'command': command}))
 
+
 def list(client_id):
     logger.debug("showing commands for client %s", client_id)
     conn = http.client.HTTPConnection(config["client"]["poll_host"], config["client"]["poll_port"])
